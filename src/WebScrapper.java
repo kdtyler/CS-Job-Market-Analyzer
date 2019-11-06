@@ -6,10 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 // import java.lang.NullPointerException;
 import java.util.ArrayList;
 
-public class Scrapper {
+public class WebScrapper {
 	private String url;
 
-	public Scrapper(String url) {
+	public WebScrapper(String url) {
 		this.url = url;
 	}
 

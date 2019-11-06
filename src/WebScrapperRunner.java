@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
-public class ScrapperRunner {
+public class WebScrapperRunner {
 	private String baseURL;
 	private int num;
 	private String outputFileName;
 	private String[] URLs;
 	
-	public ScrapperRunner(String baseURL, int num, String outputFileName) {
+	public WebScrapperRunner(String baseURL, int num, String outputFileName) {
 		this.baseURL = baseURL;
 		this.num = num;
 		this.outputFileName = outputFileName;
@@ -18,7 +18,7 @@ public class ScrapperRunner {
 	
 	public void Run() {
 		for(String url: this.URLs) {
-			Scrapper scrapper = new Scrapper(url);
+			WebScrapper scrapper = new WebScrapper(url);
 			ArrayList<Job> jobs = scrapper.ScrapeURL();
 			DataWriter dw = new DataWriter(this.outputFileName);
 			dw.WriteDataToFile(jobs);
@@ -27,7 +27,7 @@ public class ScrapperRunner {
 	
 	
 	public static void main(String[] args) {
-		ScrapperRunner sr = new ScrapperRunner("https://www.indeed.com/jobs?q=software+engineer&l=Boston%2C+MA", 20, "software_engineer_boston.txt");
+		WebScrapperRunner sr = new WebScrapperRunner("https://www.indeed.com/jobs?q=software+engineer&l=Boston%2C+MA", 50, "software_engineer_boston.txt");
 		sr.Run();
 		System.out.println("Done !");
 	}
