@@ -16,3 +16,6 @@ Instruction on web scrapping:
    
    In line 23, set the second argument of System.setProperty() function to the path for the .exe file from step 1.
 
+5. Run WebScrapper.java.
+
+   The program searches for all software engineer jobs in Boston area and scrapes the first 5 pages of the job posting. For each job posting, the program extracts job title, location, company, salary and job description. It saves the output data to .txt file. 
