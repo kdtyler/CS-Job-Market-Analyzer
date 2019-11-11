@@ -86,15 +86,45 @@ public class DataAnalysis {
 		return cleanString; 
 	}
 	
+	public double averageStartingSalary(ArrayList<Job> jobsArray) {
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		
+		for (Job j : jobsArray) {
+			String salary = j.getSalary();
+			if (!salary.contentEquals("None")) {
+				
+				if (salary.contains("-")) {
+					String[] salaryBand = salary.split("-");
+					salaryBand[0] = salaryBand[0].replaceAll("[^\\d.]", "");
+					int begSalary = Integer.parseInt(salaryBand[0]);
+					System.out.println(begSalary);
+					values.add(begSalary);
+				}
+				else {
+					salary = salary.replaceAll("[^\\d.]", "");
+					int begSalary = Integer.parseInt(salary);
+					System.out.println(begSalary);
+					values.add(begSalary); 
+				}
+			}
+		}
+		double sum = 0;
+		for (int i : values) {
+			sum += i; 
+		}
+		return sum / (double) values.size(); 
+	}
+	
 	public static void main(String[] args) {
 		DataAnalysis da = new DataAnalysis();
-		List<String> test = da.topNLocations(11);
+		/*List<String> test = da.topNLocations(11);
 		for (String s : test) {
 			System.out.println(s);
 		}
 		int n = da.jobDescriptionContainsKeyWord("java"); 
 		System.out.println(n);
-		
+		*/
+		System.out.println(da.averageStartingSalary(da.jobs));
 		
 	}
 }
