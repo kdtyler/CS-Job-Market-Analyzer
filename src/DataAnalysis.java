@@ -2,7 +2,11 @@ import java.io.*;
 import java.util.*;
 
 public class DataAnalysis {
-	ArrayList<Job> jobs = new ArrayList<Job>();
+	private DataCleaner dc = new DataCleaner(); 
+	private ArrayList<Job> jobs = new ArrayList<Job>();
+	private ArrayList<String> jobTitles = new ArrayList<String>();
+	private ArrayList<String> jobLocations = new ArrayList<String>();
+	private ArrayList<String> jobCompanies = new ArrayList<String>();
 
 	public DataAnalysis(){
 		String inputFile = "software_engineer_boston.txt";
@@ -13,12 +17,19 @@ public class DataAnalysis {
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
 				String[] lineData = line.split("\\|");
-				Job job = new Job (lineData[0],lineData[1],lineData[2],lineData[3],lineData[4]); 
+				lineData[1] = dc.cleanLocation(lineData[1]);
+				Job job = new Job (lineData[0],lineData[1],lineData[2],lineData[3],lineData[4]);
+		
 				jobs.add(job); 
 				
+				if (!jobTitles.contains(lineData[0])) {jobTitles.add(lineData[0]);}
+				if (!jobLocations.contains(lineData[1])) {jobLocations.add(lineData[1]);}
+				if (!jobCompanies.contains(lineData[2])) { jobCompanies.add(lineData[2]);}
 				
-			}
-		} catch (FileNotFoundException e) {
+			}	
+			
+		} 
+		catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
@@ -46,17 +57,34 @@ public class DataAnalysis {
 		for (String key : sorted.keySet()) {
 			results.add(key); 
 		}
-		// return the top N from the sorted TreeMap
-		List<String> finalResults = results.subList(0, n);
-		return finalResults; 
+		// return the top N from the sorted TreeMap if list is greater then N only
+		if (results.size() > n) {
+			List<String> finalResults = results.subList(0, n);
+			return finalResults; 
+		}
+		else { return results;} 
 	}
+	
+	public int jobDescriptionContainsKeyWord(String keyword) {
+		int keywordCounter =0; 
+		for (Job j : jobs) {
+			String description = j.getJobDescription().toLowerCase();
+			if (description.contains(keyword)) {
+				keywordCounter++;
+			}
+		}
+		return keywordCounter; 
+	}
+	
 	
 	public static void main(String[] args) {
 		DataAnalysis da = new DataAnalysis();
-		List<String> test = da.topNLocations(3);
+		List<String> test = da.topNLocations(11);
 		for (String s : test) {
 			System.out.println(s);
 		}
+		int n = da.jobDescriptionContainsKeyWord("java"); 
+		System.out.println(n);
 		
 		
 	}
