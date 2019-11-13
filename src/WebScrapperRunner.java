@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+/**
+ * WebScrapperRunner class
+ * @author Bo Jiang
+ *
+ */
 public class WebScrapperRunner {
 	private String baseURL;
 	private int num;
@@ -16,6 +21,9 @@ public class WebScrapperRunner {
 		}
 	}
 	
+	/*
+	 * Extract job posting data for each of the URLs, save data into a .txt file
+	 */
 	public void Run() {
 		for(String url: this.URLs) {
 			WebScrapper scrapper = new WebScrapper(url);
@@ -25,7 +33,9 @@ public class WebScrapperRunner {
 		}
 	}
 	
-	
+	/*
+	 * Search for software engineer jobs in Boston, MA, extract all job posting data from the first 5 pages
+	 */
 	public static void main(String[] args) {
 		WebScrapperRunner sr = new WebScrapperRunner("https://www.indeed.com/jobs?q=software+engineer&l=Boston%2C+MA", 50, "software_engineer_boston.txt");
 		sr.Run();

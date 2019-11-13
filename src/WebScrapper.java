@@ -6,6 +6,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 // import java.lang.NullPointerException;
 import java.util.ArrayList;
 
+/**
+ * WebScrapper class
+ * @author Bo Jiang
+ *
+ */
 public class WebScrapper {
 	private String url;
 
@@ -17,6 +22,10 @@ public class WebScrapper {
 		return this.url;
 	}
 
+	/**
+	 * Scrape job posting data from a URL
+	 * @return An array list of Jobs
+	 */
 	public ArrayList<Job> ScrapeURL(){
 		ArrayList<Job> jobs = new ArrayList<Job>();
 		// Connect a driver to a program
@@ -25,6 +34,11 @@ public class WebScrapper {
 		// Go to url
 		driver.get(this.url);
 		String original_window = driver.getWindowHandle();
+		
+		/*
+		 * For each of job posting, extract job title, location, company, salary and job description.
+		 * If information is not available, "None" value is used as default
+		 */
 		for(WebElement position: driver.findElements(By.className("result"))) {
 			String jobTitle, location, company, salary, jobDescription;
 			try {
@@ -54,7 +68,10 @@ public class WebScrapper {
 			catch(org.openqa.selenium.NoSuchElementException e) {
 				salary = "None";
 			}
-
+			
+			/*
+			 * Click on each job posting and extract job description
+			 */
 			position.click();
 			String new_window = null;
 			for(String win: driver.getWindowHandles()) {

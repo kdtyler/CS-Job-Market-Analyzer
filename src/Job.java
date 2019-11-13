@@ -1,5 +1,12 @@
-
+/**
+ * Job class
+ * @author Bo Jiang
+ *
+ */
 public class Job {
+	/**
+	 * Job class stores job title, location, company salary and job description
+	 */
 	private String jobTitle;
 	private String location;
 	private String company;
@@ -60,6 +67,10 @@ public class Job {
 		this.jobDescription = jobDescription;
 	}
 
+	/**
+	 * Return string representation of a job. Each piece of information is separated by "|"
+	 * @return a string has job title, location, company, salary and job description of a job posting
+	 */
 	public String convertToString() {
 		return this.getJobTitle() + "|" + this.getLocation() + "|" + this.getCompany() + "|" + this.getSalary() + "|" + this.getJobDescription() + "|" + "\n";
 	}
