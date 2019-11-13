@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+
 public class DataAnalysis {
 	private ArrayList<Job> jobs = new ArrayList<Job>();
 	// Create array Lists of all the unique job titles, locations, and companies hiring
@@ -136,5 +137,22 @@ public class DataAnalysis {
 		*/
 		System.out.println(da.averageStartingSalary(da.jobs));
 		
+	}
+
+	//Generate Getters for the ArrayLists in the constructer
+	public ArrayList<Job> getJobs() {
+		return jobs;
+	}
+
+	public ArrayList<String> getJobTitles() {
+		return jobTitles;
+	}
+
+	public ArrayList<String> getJobLocations() {
+		return jobLocations;
+	}
+
+	public ArrayList<String> getJobCompanies() {
+		return jobCompanies;
 	}
 }
