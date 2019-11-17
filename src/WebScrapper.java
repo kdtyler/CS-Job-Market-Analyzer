@@ -29,7 +29,7 @@ public class WebScrapper {
 	public ArrayList<Job> ScrapeURL(){
 		ArrayList<Job> jobs = new ArrayList<Job>();
 		// Connect a driver to a program
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\jiang\\Desktop\\Upenn\\MCIT591\\Project\\Java\\chromedriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", ".\\chromedriver\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		// Go to url
 		driver.get(this.url);
@@ -94,7 +94,7 @@ public class WebScrapper {
 			jobs.add(job);
 		}
 
-		driver.close();		
+		driver.close();
 		return jobs;
 	}
 }
