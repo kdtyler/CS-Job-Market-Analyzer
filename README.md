@@ -1,12 +1,12 @@
 # CIT591 Final Project: CS Job Market Analyzer
 Instruction on web scrapping:
-1. Download ChromeDriver - WebDriver for Chrome: https://sites.google.com/a/chromium.org/chromedriver/. 
+1. Download ChromeDriver - WebDriver for Chrome: https://sites.google.com/a/chromium.org/chromedriver/
    
    Make sure the version of ChromeDriver is the same as the version of your Chrome browser.
    
-2. Download Selenium for Java: https://www.seleniumhq.org/download/.
+2. Download Selenium for Java: https://www.seleniumhq.org/download/
 
-3. Add external JARs to the project.
+3. Add external JARs to the project
   
    Right click on the project, click Build Path, click Configure Build Path and then click Add External JARs.
    
@@ -30,7 +30,7 @@ Instruction on web scrapping:
 
    In line 48, input the location of the .txt file you configured in step 5 as a string.
    
-7. Run WebScrapperRunner.java.
+7. Run WebScrapperRunner.java in Eclipse
 
    The program reads in parameters from input file you configured in step 5. Then it searches for job postings. For each job posting, the program extracts job title, location, company, salary and job description. Finally, it saves the output data to the output file you specified in step 5. 
 
