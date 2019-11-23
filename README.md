@@ -2,7 +2,7 @@
 Instruction on web scrapping:
 1. Download ChromeDriver - WebDriver for Chrome: https://sites.google.com/a/chromium.org/chromedriver/. 
    
-   Make sure you the version of ChromeDriver is the same as the version of your Chrome.
+   Make sure the version of ChromeDriver is the same as the version of your Chrome browser.
    
 2. Download Selenium for Java: https://www.seleniumhq.org/download/.
 
@@ -14,11 +14,25 @@ Instruction on web scrapping:
   
 4. Configure WebScrapper.java
    
-   In line 23, set the second argument of System.setProperty() function to the path for the .exe file from step 1.
+   In line 32, set the second argument of System.setProperty() function to the path for the .exe file from step 1.
+   
+5. Configure input file
 
-5. Run WebScrapper.java.
+   In the input folder, create a .txt file for the job postings that you want to pull from indeed.com. Then, type in the following formation:
+   
+      First line: a valid URL for job postings. The instruction for constructing a valid URL can be found in URL_rules.docx.
+   
+      Second line: the number of pages of search results.
+   
+      Third line: the name of output file.
 
-   The program searches for all software engineer jobs in Boston area and scrapes the first 5 pages of the job posting. For each job posting, the program extracts job title, location, company, salary and job description. It saves the output data to .txt file. 
+6. Configure WebScrapperRunner.java
+
+   In line 48, input the location of the .txt file you configured in step 5 as a string.
+   
+7. Run WebScrapperRunner.java.
+
+   The program reads in parameters from input file you configured in step 5. Then it searches for job postings. For each job posting, the program extracts job title, location, company, salary and job description. Finally, it saves the output data to the output file you specified in step 5. 
 
 
 GUI Update (Kevin 11/11/19)
