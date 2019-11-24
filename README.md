@@ -20,11 +20,13 @@ Instruction on web scrapping:
 
    In the input folder, create a .txt file for the job postings that you want to pull from indeed.com. Then, type in the following formation:
    
-      First line: a valid URL for job postings. The instruction for constructing a valid URL can be found in URL_rules.docx.
+      line 1: a valid URL for job postings. The instruction for constructing a valid URL can be found in URL_rules.docx.
    
-      Second line: the number of pages of search results.
+      line 2: the first page of search results that you want to pull data
+      
+      line 3: the last page of search results that you want to pull data
    
-      Third line: the name of output file.
+      line 4: the name of output file.
 
 6. Configure WebScrapperRunner.java
 
