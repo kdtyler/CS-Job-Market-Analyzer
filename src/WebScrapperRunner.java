@@ -10,32 +10,47 @@ import java.util.Scanner;
  */
 public class WebScrapperRunner {
 	private String baseURL;
-	private int num;
+	private int start;
+	private int end;
+	private int curr;
 	private String outputFileName;
-	private String[] URLs;
 
-	public WebScrapperRunner(String baseURL, int num, String outputFileName) {
+	public WebScrapperRunner(String baseURL, int start, int end, String outputFileName) {
 		this.baseURL = baseURL;
-		this.num = num;
+		this.start = start;
+		this.end = end;
+		this.curr = this.start - 1;
 		this.outputFileName = outputFileName;
-		this.URLs = new String[this.num / 10];
-		for(int i = 0; i < this.URLs.length; i++) {
-			this.URLs[i] = this.baseURL + "&start=" + Integer.toString(i * 10);
-		}
 	}
 
+	public int getCurr() {
+		return this.curr;
+	}
+	
+	public String getBaseURL() {
+		return this.baseURL;
+	}
+	
+	public String getOutputFileName() {
+		return this.outputFileName;
+	}
+	
+	public void addToCurr() {
+		this.curr += 1;
+	}
+	
 	/*
 	 * Extract job posting data for each of the URLs, save data into a .txt file
 	 */
 	public void Run() {
-		int cnt = 1;
-		for(String url: this.URLs) {
+		while(this.getCurr() < this.end) {
+			String url = this.getBaseURL() + "&start=" + Integer.toString(this.getCurr() * 10);			
 			WebScrapper scrapper = new WebScrapper(url);
 			ArrayList<Job> jobs = scrapper.ScrapeURL();
-			DataWriter dw = new DataWriter(this.outputFileName);
+			DataWriter dw = new DataWriter(this.getOutputFileName());
 			dw.WriteDataToFile(jobs);
-			System.out.println("Page " + cnt + " is scrapped !");
-			cnt += 1;
+			System.out.println("Page " + (this.getCurr() + 1) + " is scrapped !");
+			this.addToCurr();
 		}
 	}
 
@@ -45,15 +60,16 @@ public class WebScrapperRunner {
 	public static void main(String[] args) {
 
 		//File input = new File("C:\\Users\\jiang\\Desktop\\Upenn\\MCIT591\\Project\\CSJobMarketAnalyzer\\job_posting1.txt");
-		File input = new File(".\\input\\job_posting1.txt");
+		File input = new File(".\\input\\job_posting3.txt");
 		try {
 			Scanner s = new Scanner(input);
 			String url = s.nextLine().replace("\n", "");
-			int num = Integer.parseInt(s.nextLine());
+			int num1 = Integer.parseInt(s.nextLine());
+			int num2 = Integer.parseInt(s.nextLine());
 			String outputFile = s.nextLine();
 			s.close();
 
-			WebScrapperRunner sr = new WebScrapperRunner(url, num, outputFile);
+			WebScrapperRunner sr = new WebScrapperRunner(url, num1, num2, outputFile);
 			sr.Run();
 			System.out.println("Done !");
 		} catch (FileNotFoundException e) {

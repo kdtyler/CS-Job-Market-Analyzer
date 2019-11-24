@@ -1,0 +1,4 @@
+https://www.indeed.com/jobs?q=software+engineer&l=San+Francisco+Bay+Area%2C+CA
+1
+100
+.\\output\\software_engineer_bay_area.txt

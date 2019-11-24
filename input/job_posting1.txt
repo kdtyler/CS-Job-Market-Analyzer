@@ -1,3 +1,4 @@
-https://www.indeed.com/jobs?q=software+engineer&l=Boston%2C+MA
-20
-.\\output\\software_engineer_boston.txt
+https://www.indeed.com/jobs?q=software+engineer&l=New+York%2C+NY
+1
+100
+.\\output\\software_engineer_NYC.txt
