@@ -1,7 +1,8 @@
 import javafx.application.Application; 
 import javafx.collections.FXCollections; 
-import javafx.collections.ObservableList; 
-
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets; 
 import javafx.geometry.Pos; 
 
@@ -31,9 +32,12 @@ public class GUIHome extends Application {
       //Label for city of interest 
       Text cityOfInterestLabel = new Text("City of Interest"); 
       
+      
       //Text field for city of interest 
       TextField cityOfInterestText = new TextField(); 
-       
+      //String cityOfInterestTextExtracted = cityOfInterestText.getText() ;
+      
+      
       //Label for company 
       Text companyLabel = new Text("Company"); 
       
@@ -70,6 +74,15 @@ public class GUIHome extends Application {
        
       //Search Button
       Button buttonRegister = new Button("Search");  
+      //root.getChildren().add(buttonRegister) ;
+      buttonRegister.setOnAction(e -> {
+      System.out.println("City is: " + cityOfInterestText.getText());
+      System.out.println("Works again");
+      String cityOfInterestTextExtracted = cityOfInterestText.getText();
+      JavaFXPassingTest.printArgument(cityOfInterestTextExtracted) ;
+      });
+      
+      //buttonRegister.setOnAction(this) ;
       
       //Creating a Grid Pane 
       GridPane gridPane = new GridPane();    
@@ -134,7 +147,17 @@ public class GUIHome extends Application {
       //Testing retrieving data from user input
       
      
-   }      
+   }
+   
+   //@Override
+   //public void handle(ActionEvent event) {
+	   //System.out.println("Hello world.");
+	   
+	   //String cityOfInterestTextExtracted = cityOfInterestText.getText() ;
+	   
+	   //System.out.println(cityOfInterestTextExtracted);
+   //}
+   
    public static void main(String args[]){ 
       launch(args); 
    } 
