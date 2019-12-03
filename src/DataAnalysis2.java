@@ -11,6 +11,7 @@ public class DataAnalysis2 {
 	private ArrayList<String> jobLocations = new ArrayList<String>();
 	private ArrayList<String> jobCompanies = new ArrayList<String>();
 	
+	// Enter job title and location as "Boston,MA" to create dataset
 	public DataAnalysis2(String jobTitle, String location){
 		this.jobTitle = jobTitle.toLowerCase();
 		this.location = location; 
@@ -77,7 +78,7 @@ public class DataAnalysis2 {
 					keywordCounter++;
 				}
 			}
-			return "Of the "+filteredJobs.size()+" jobs "+keywordCounter+" contain the keyword entered."; 
+			return "Of the "+filteredJobs.size()+" jobs "+keywordCounter+" contain the keyword '" + keyword+"'."; 
 		}
 		
 		public String averageStartingSalary() {
@@ -109,7 +110,6 @@ public class DataAnalysis2 {
 					else {
 						salary = salary.replaceAll("[^\\d.]", "");
 						int begSalary = Integer.parseInt(salary);
-						System.out.println(begSalary);
 						localStartingValues.add(begSalary); 
 					}
 				}
@@ -132,7 +132,6 @@ public class DataAnalysis2 {
 					else {
 						salary = salary.replaceAll("[^\\d.]", "");
 						int begSalary = Integer.parseInt(salary);
-						System.out.println(begSalary);
 						allStartingValues.add(begSalary); 
 					}
 				}
@@ -159,7 +158,11 @@ public class DataAnalysis2 {
 		public static void main(String[] args) {
 			DataAnalysis2 d2 = new DataAnalysis2("software engineer", "Boston,MA"); 
 			String i = d2.averageStartingSalary();
-			System.out.println(i);	
+			System.out.println(i);
+			String j = d2.numberOfJobs();
+			System.out.println(j);
+			String k = d2.jobDescriptionContainsKeyWord("java");
+			System.out.println(k);	
 			
 		}
 
