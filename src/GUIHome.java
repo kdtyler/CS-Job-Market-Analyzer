@@ -29,20 +29,28 @@ import javafx.stage.Stage;
 public class GUIHome extends Application { 
    @Override 
    public void start(Stage stage) {    
-      //Label for city of interest 
-      Text cityOfInterestLabel = new Text("City of Interest"); 
+	   
+	   //Label for Job Title
+	   Text jobTitleLabel = new Text("Job Title");
+	   
+	   //Text field for Job Title
+	   TextField jobTitleText = new TextField();
+	   
+	   
+      //Label for location 
+      Text cityOfInterestLabel = new Text("Location"); 
       
       
-      //Text field for city of interest 
+      //Text field for location
       TextField cityOfInterestText = new TextField(); 
       //String cityOfInterestTextExtracted = cityOfInterestText.getText() ;
       
       
-      //Label for company 
-      Text companyLabel = new Text("Company"); 
+      //Label for estimated salary 
+      Text estimatedSalaryLabel = new Text("Estimated Salary"); 
       
       //Text field for company
-      TextField companyText = new TextField();
+      TextField estimatedSalaryText = new TextField();
       
       //Label for type of job (internship vs. full time)
       Text typeLabel = new Text("Type"); 
@@ -59,27 +67,44 @@ public class GUIHome extends Application {
       
       final int ROW_HEIGHT = 24;
       //list View for salary options
-      ObservableList<String> salaryOptions = FXCollections.observableArrayList( 
-         "<50k", "50-60k", "60-70k", "70-80k", "80-90k", "90-100k", "100-110k", "110-120k", "120-130k", "130-140k", "140-150k", "150k+"); 
-      ListView<String> salaryOptionsListView = new ListView<String>(salaryOptions); 
-      salaryOptionsListView.setPrefHeight(salaryOptions.size() * ROW_HEIGHT + 2);
+      //ObservableList<String> salaryOptions = FXCollections.observableArrayList( 
+         //"<50k", "50-60k", "60-70k", "70-80k", "80-90k", "90-100k", "100-110k", "110-120k", "120-130k", "130-140k", "140-150k", "150k+"); 
+     // ListView<String> salaryOptionsListView = new ListView<String>(salaryOptions); 
+      //salaryOptionsListView.setPrefHeight(salaryOptions.size() * ROW_HEIGHT + 2);
       
       //Label for education required
-      Text educationLabel = new Text("Education Required"); 
+      Text educationLabel = new Text("Experience"); 
+      
+    //Label for Job Title
+	   Text distanceLabel = new Text("Distance");
       
       //Choice box for education required
       ChoiceBox educationChoiceBox = new ChoiceBox(); 
       educationChoiceBox.getItems().addAll
-         ("BS", "MS", "PhD"); 
+         ("All", "BS", "MS", "PhD"); 
+      
+    //Choice box for education required
+      ChoiceBox distanceChoiceBox = new ChoiceBox(); 
+      distanceChoiceBox.getItems().addAll
+         ("All", "<10 miles", "<50 miles", "<100 miles"); 
        
       //Search Button
       Button buttonRegister = new Button("Search");  
       //root.getChildren().add(buttonRegister) ;
       buttonRegister.setOnAction(e -> {
-      System.out.println("City is: " + cityOfInterestText.getText());
-      System.out.println("Works again");
-      String cityOfInterestTextExtracted = cityOfInterestText.getText();
-      JavaFXPassingTest.printArgument(cityOfInterestTextExtracted) ;
+    	  System.out.println("Job Title: " + jobTitleText.getText());
+    	  System.out.println("Location: " + cityOfInterestText.getText());
+    	  System.out.println("Estimated Salary: " + estimatedSalaryText.getText());
+    	  System.out.println("Type: " + internshipFullTime.getSelectedToggle());
+    	  System.out.println("Experience: " + educationChoiceBox.getValue());
+    	  System.out.println("Distance: " + distanceChoiceBox.getValue());
+    	  //System.out.println("Works again");
+    	  //String cityOfInterestTextExtracted = cityOfInterestText.getText();
+    	  //JavaFXPassingTest.printArgument(cityOfInterestTextExtracted) ;
+    	  
+      
+      
+      
       });
       
       //buttonRegister.setOnAction(this) ;
@@ -101,33 +126,42 @@ public class GUIHome extends Application {
       gridPane.setAlignment(Pos.CENTER); 
        
       //Arranging all the nodes in the grid 
-      gridPane.add(cityOfInterestLabel, 0, 0); 
-      gridPane.add(cityOfInterestText, 1, 0); 
-       
-      gridPane.add(companyLabel, 0, 1);
-      gridPane.add(companyText, 1, 1);;
       
-      gridPane.add(typeLabel, 0, 2); 
-      gridPane.add(internshipRadio, 1, 2);       
-      gridPane.add(fullTimeRadio, 2, 2); 
+      gridPane.add(jobTitleLabel,  0,  0);
+      gridPane.add(jobTitleText,  1,  0);;
       
-      gridPane.add(salaryLabel, 0, 5); 
-      gridPane.add(salaryOptionsListView, 1, 5);      
+      gridPane.add(cityOfInterestLabel, 0, 1); 
+      gridPane.add(cityOfInterestText, 1, 1); 
        
-      gridPane.add(educationLabel, 0, 6); 
-      gridPane.add(educationChoiceBox, 1, 6);    
+      gridPane.add(estimatedSalaryLabel, 0, 2);
+      gridPane.add(estimatedSalaryText, 1, 2);;
+      
+      gridPane.add(typeLabel, 0, 3); 
+      gridPane.add(internshipRadio, 1, 3);       
+      gridPane.add(fullTimeRadio, 2, 3); 
+      
+      //gridPane.add(salaryLabel, 0, 5); 
+      //gridPane.add(salaryOptionsListView, 1, 5);      
        
-      gridPane.add(buttonRegister, 2, 8);      
+      gridPane.add(educationLabel, 0, 4); 
+      gridPane.add(educationChoiceBox, 1, 4);    
+      
+      gridPane.add(distanceLabel, 0, 5); 
+      gridPane.add(distanceChoiceBox, 1, 5);
+       
+      gridPane.add(buttonRegister, 2, 6);      
       
       //Styling nodes   
       buttonRegister.setStyle(
          "-fx-background-color: Green; -fx-textfill: white;"); 
       
       cityOfInterestLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
-      companyLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      estimatedSalaryLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      jobTitleLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
       typeLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
       salaryLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
       educationLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      distanceLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
        
       //Setting the back ground color 
       gridPane.setStyle("-fx-background-color: LIGHTBLUE;");       
