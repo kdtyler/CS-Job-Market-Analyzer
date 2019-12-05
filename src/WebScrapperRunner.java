@@ -57,6 +57,7 @@ public class WebScrapperRunner {
 	/*
 	 * Search for software engineer jobs in Boston, MA, extract all job posting data from the first 5 pages
 	 */
+	/*
 	public static void main(String[] args) {
 
 		//File input = new File("C:\\Users\\jiang\\Desktop\\Upenn\\MCIT591\\Project\\CSJobMarketAnalyzer\\job_posting1.txt");
@@ -77,6 +78,6 @@ public class WebScrapperRunner {
 			System.out.println("File not found !");
 			e.printStackTrace();
 		}
-
 	}
+	*/
 }

@@ -68,15 +68,15 @@ public class URLGenerator {
 			url += "&sort=date";
 		}
 		
-		url += "&start=0";
+		// url += "&start=0";
 		return url;
 	}
 	
-	/*
+	
 	public static void main(String[] args) {
-		URLGenerator g = new URLGenerator("machine learning engineer", "None", "San Francisco", "CA", "None", "None", "None", "None");
+		URLGenerator g = new URLGenerator("machine learning engineer", "100000", "San Francisco", "CA", "None", "None", "None", "None");
 		System.out.println(g.getURL());
 	}
-	*/
+	
 	
 }
