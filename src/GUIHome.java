@@ -15,7 +15,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton; 
 import javafx.scene.layout.GridPane; 
 import javafx.scene.text.Text; 
-import javafx.scene.control.TextField; 
+import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;  
 import javafx.scene.control.ToggleButton; 
 import javafx.stage.Stage; 
@@ -37,14 +38,18 @@ public class GUIHome extends Application {
 	   TextField jobTitleText = new TextField();
 	   
 	   
-      //Label for location 
-      Text cityOfInterestLabel = new Text("Location"); 
+      //Label for City
+      Text cityOfInterestLabel = new Text("City"); 
       
+      //Label for State
+      Text stateOfInterestLabel = new Text("State");
       
-      //Text field for location
+      //Text field for city
       TextField cityOfInterestText = new TextField(); 
       //String cityOfInterestTextExtracted = cityOfInterestText.getText() ;
       
+      //Text field for state
+      TextField stateOfInterestText = new TextField();
       
       //Label for estimated salary 
       Text estimatedSalaryLabel = new Text("Estimated Salary"); 
@@ -57,10 +62,18 @@ public class GUIHome extends Application {
       
       //Toggle group of radio buttons for type of job      
       ToggleGroup internshipFullTime = new ToggleGroup(); 
-      RadioButton internshipRadio = new RadioButton("Internship"); 
+      RadioButton internshipRadio = new RadioButton("internship"); 
       internshipRadio.setToggleGroup(internshipFullTime); 
-      RadioButton fullTimeRadio = new RadioButton("fullTime"); 
+      RadioButton fullTimeRadio = new RadioButton("full-time"); 
       fullTimeRadio.setToggleGroup(internshipFullTime); 
+      RadioButton contractRadio = new RadioButton("contract"); 
+      contractRadio.setToggleGroup(internshipFullTime); 
+      RadioButton partTimeRadio = new RadioButton("part-time"); 
+      partTimeRadio.setToggleGroup(internshipFullTime); 
+      RadioButton temporaryRadio = new RadioButton("temporary"); 
+      temporaryRadio.setToggleGroup(internshipFullTime); 
+      RadioButton commissionRadio = new RadioButton("commission"); 
+      commissionRadio.setToggleGroup(internshipFullTime); 
        
       //Label for salary
       Text salaryLabel = new Text("Salary Range"); 
@@ -81,7 +94,7 @@ public class GUIHome extends Application {
       //Choice box for education required
       ChoiceBox educationChoiceBox = new ChoiceBox(); 
       educationChoiceBox.getItems().addAll
-         ("All", "BS", "MS", "PhD"); 
+         ("all", "entry level", "mid level", "senior level"); 
       
     //Choice box for education required
       ChoiceBox distanceChoiceBox = new ChoiceBox(); 
@@ -92,15 +105,29 @@ public class GUIHome extends Application {
       Button buttonRegister = new Button("Search");  
       //root.getChildren().add(buttonRegister) ;
       buttonRegister.setOnAction(e -> {
-    	  System.out.println("Job Title: " + jobTitleText.getText());
-    	  System.out.println("Location: " + cityOfInterestText.getText());
-    	  System.out.println("Estimated Salary: " + estimatedSalaryText.getText());
-    	  System.out.println("Type: " + internshipFullTime.getSelectedToggle());
-    	  System.out.println("Experience: " + educationChoiceBox.getValue());
-    	  System.out.println("Distance: " + distanceChoiceBox.getValue());
-    	  //System.out.println("Works again");
-    	  //String cityOfInterestTextExtracted = cityOfInterestText.getText();
-    	  //JavaFXPassingTest.printArgument(cityOfInterestTextExtracted) ;
+    	  
+    	  String userJobTitle = TextfieldCheck(jobTitleText.getText());
+    	  String state = TextfieldCheck(stateOfInterestText.getText());
+    	  String city = TextfieldCheck(cityOfInterestText.getText());
+    	  String estimatedSalary = TextfieldCheck(estimatedSalaryText.getText());
+    	  RadioButton selectedRadioButton = (RadioButton) internshipFullTime.getSelectedToggle();
+    	  String userInputToggleJobType = selectedRadioButton.getText();
+    	  String experienceChoice = (String) educationChoiceBox.getValue();
+    	  String distanceChoice = (String) distanceChoiceBox.getValue();
+    	  String distanceChoiceNumber = distanceConverter(distanceChoice);
+    	  
+    	  
+    	  System.out.println("Job Title: " + userJobTitle);
+    	  System.out.println("State: " + state);
+    	  System.out.println("City: " + city);
+    	  System.out.println("Estimated Salary: " + estimatedSalary);
+    	  System.out.println("Type: " + userInputToggleJobType);
+    	  System.out.println("Experience: " + experienceChoice);
+    	  System.out.println("Distance: " + distanceChoiceNumber);
+    	  
+    	  URLGenerator g = new URLGenerator(userJobTitle, estimatedSalary, city, state, distanceChoiceNumber, userInputToggleJobType, experienceChoice, "None");
+    	  System.out.println(g.getURL());
+
     	  
       
       
@@ -130,31 +157,39 @@ public class GUIHome extends Application {
       gridPane.add(jobTitleLabel,  0,  0);
       gridPane.add(jobTitleText,  1,  0);;
       
-      gridPane.add(cityOfInterestLabel, 0, 1); 
-      gridPane.add(cityOfInterestText, 1, 1); 
-       
-      gridPane.add(estimatedSalaryLabel, 0, 2);
-      gridPane.add(estimatedSalaryText, 1, 2);;
+      gridPane.add(stateOfInterestLabel, 0, 1); 
+      gridPane.add(stateOfInterestText, 1, 1); 
       
-      gridPane.add(typeLabel, 0, 3); 
-      gridPane.add(internshipRadio, 1, 3);       
-      gridPane.add(fullTimeRadio, 2, 3); 
+      gridPane.add(cityOfInterestLabel, 0, 2); 
+      gridPane.add(cityOfInterestText, 1, 2); 
+       
+      gridPane.add(estimatedSalaryLabel, 0, 3);
+      gridPane.add(estimatedSalaryText, 1, 3);;
+      
+      gridPane.add(typeLabel, 0, 4); 
+      gridPane.add(internshipRadio, 1, 4);       
+      gridPane.add(fullTimeRadio, 2, 4); 
+      gridPane.add(contractRadio,  3,  4);
+      gridPane.add(partTimeRadio,  1,  5);
+      gridPane.add(temporaryRadio,  2,  5);
+      gridPane.add(commissionRadio,  3,  5);
       
       //gridPane.add(salaryLabel, 0, 5); 
       //gridPane.add(salaryOptionsListView, 1, 5);      
        
-      gridPane.add(educationLabel, 0, 4); 
-      gridPane.add(educationChoiceBox, 1, 4);    
+      gridPane.add(educationLabel, 0, 6); 
+      gridPane.add(educationChoiceBox, 1, 6);    
       
-      gridPane.add(distanceLabel, 0, 5); 
-      gridPane.add(distanceChoiceBox, 1, 5);
+      gridPane.add(distanceLabel, 0, 7); 
+      gridPane.add(distanceChoiceBox, 1, 7);
        
-      gridPane.add(buttonRegister, 2, 6);      
+      gridPane.add(buttonRegister, 2, 8);      
       
       //Styling nodes   
       buttonRegister.setStyle(
          "-fx-background-color: Green; -fx-textfill: white;"); 
       
+      stateOfInterestLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
       cityOfInterestLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
       estimatedSalaryLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
       jobTitleLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
@@ -191,6 +226,31 @@ public class GUIHome extends Application {
 	   
 	   //System.out.println(cityOfInterestTextExtracted);
    //}
+   
+   String TextfieldCheck(String stringToCheck) {
+	   
+	   if(stringToCheck.equals("")) {
+		   return "none" ;
+	   }
+	   
+	   return stringToCheck;
+   }
+   
+   
+   String distanceConverter(String distance) {
+	   
+	   String distanceNumber = "None" ;
+	  
+	   if (distance.contains("10")) {
+		   distanceNumber = "10";
+	   } else if (distance.contains("50")) {
+		   distanceNumber = "50";
+	   } else if (distance.contains("100")) {
+		   distanceNumber = "100";
+	   }
+	   
+	   return distanceNumber;
+   }
    
    public static void main(String args[]){ 
       launch(args); 
