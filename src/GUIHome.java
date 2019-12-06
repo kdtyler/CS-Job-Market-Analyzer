@@ -125,7 +125,16 @@ public class GUIHome extends Application {
     	  System.out.println("Experience: " + experienceChoice);
     	  System.out.println("Distance: " + distanceChoiceNumber);
     	  
+    	  String output = "software_engineer_boston.txt";
     	  URLGenerator g = new URLGenerator(userJobTitle, estimatedSalary, city, state, distanceChoiceNumber, userInputToggleJobType, experienceChoice, "None");
+    	  //WebScrapperRunner wbr = new WebScrapperRunner(g.getURL(), 1, 100, output);
+    	  DataAnalysis da = new DataAnalysis();
+    	  da.salaryInformation();
+    	  da.topNCompaniesHiring(10);
+    	  da.numberOfJobs();
+    	  
+    	  
+    	  
     	  System.out.println(g.getURL());
 
     	  
@@ -230,7 +239,7 @@ public class GUIHome extends Application {
    String TextfieldCheck(String stringToCheck) {
 	   
 	   if(stringToCheck.equals("")) {
-		   return "none" ;
+		   return "None" ;
 	   }
 	   
 	   return stringToCheck;
