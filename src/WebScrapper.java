@@ -32,7 +32,8 @@ public class WebScrapper {
 
 	// Check how many job postings are returned by a search
 	public void checkNumOfJobs() {
-		System.setProperty("webdriver.chrome.driver", ".\\chromedriver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", ".\\chromedriver\\chromedriver.exe"); //Bo's version
+		//System.setProperty("webdriver.chrome.driver", "\\Upenn_Files\\MCIT591\\final-project-csjobmarketanalyzer\\final-project-csjobmarketanalyzer\\chromedriver_win32\\chromedriver.exe"); //Kevin's version
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		driver.get(this.url);
@@ -54,6 +55,7 @@ public class WebScrapper {
 		catch(org.openqa.selenium.NoSuchElementException e) {
 			// No job posting meets search criteria 
 			System.out.println("No job posting matches search criteria");
+			System.exit(0);
 		}
 		driver.close();
 	}

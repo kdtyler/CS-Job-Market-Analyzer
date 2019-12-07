@@ -10,7 +10,7 @@ public class DataAnalysis {
 	
 	//Constructer that reads in text file to create jobs array and cleans up location information
 	public DataAnalysis () {
-		String inputFile = "software_engineer_boston.txt";
+		String inputFile = "output.txt";
 		File f = new File(inputFile);
 		try {
 			Scanner s = new Scanner(f);
