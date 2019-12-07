@@ -1,0 +1,16 @@
+JavaFX Manual Tests
+
+Description: This file will go over some of the basic tests that were done to test the GUI, as the GUI class is difficult to use
+JUnit tests on.
+
+Job Market Analyzer Window (Starting window)
+- State, Experience, and Distance windows have all determined options, and a default value is set
+- Every radio button for Type can be clicked, and default is set to full-time
+- The textfields for Job Title, Estimated Salary, and City all allow for extra text if a string input is very long
+- Job Title, Estimated Salary, and City can all be left blank and code will run (though not recommended, because search results and thus
+scraping will be very, very long).
+
+Output Window (Results window)
+- All text contained inside window in both x and y direction
+- Output is based on the user-input
+- Can interact with input window while output window still open (intended functionality)
