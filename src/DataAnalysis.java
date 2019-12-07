@@ -12,7 +12,7 @@ public class DataAnalysis {
 	public DataAnalysis () {
 
 		//****** NEED TO EDIT THIS ******
-		String inputFile = "software_engineer_boston.txt";
+		String inputFile = ".\\output\\output.txt";
 		File f = new File(inputFile);
 		try {
 			Scanner s = new Scanner(f);
