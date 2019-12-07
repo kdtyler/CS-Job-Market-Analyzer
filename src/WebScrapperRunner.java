@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  * WebScrapperRunner class
+ * Scrapes all jobs postings on indeed.com that match a search query
  * @author Bo Jiang
  *
  */
@@ -67,11 +68,13 @@ public class WebScrapperRunner {
 	 * Extract job posting data for each of the URLs, save data into a .txt file
 	 */
 	public void Run() {
+		// Open first page and check how many job postings are returned.
 		WebScrapper firstPage = new WebScrapper(this.baseURL);
 		firstPage.checkNumOfJobs();
 		this.setTotalNumOfJobs(firstPage.getTotalNumOfJobs());
 		System.out.println("Total number of job postings is " + firstPage.getTotalNumOfJobs());
 
+		// Scrape data for all available job postings. The program will scrape up to 100 pages
 		while(this.getCurrNumOfJobs() < this.getTotalNumOfJobs() && this.getCurrNumOfPages() < 100) {
 			String url = this.getBaseURL() + "&start=" + Integer.toString(this.getCurrNumOfPages() * 10);			
 			WebScrapper scrapper = new WebScrapper(url);
@@ -85,18 +88,4 @@ public class WebScrapperRunner {
 		}
 		System.out.println("Done !");
 	}
-
-	/*
-	 * Search for software engineer jobs in Boston, MA, extract all job posting data from the first 5 pages
-	 */
-
-	/*
-	public static void main(String[] args) {
-		int a = Integer.parseInt("123a");
-		 WebScrapperRunner sr = new WebScrapperRunner("https://www.indeed.com/jobs?q=machine+learning+engineer%24100%2C000&l=Tempe%2C+AZ", 
-				".\\output\\machine_learning_engineer_Tempe.txt");
-		 sr.Run();
-	}
-	*/
-
 }

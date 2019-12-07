@@ -1,6 +1,6 @@
 /**
  * URL Generator Class
- * This class generate a valid URL for job posting search on indeed.com given 
+ * Generate a valid URL for job posting search on indeed.com given 
  * search criteria (job title, location, estimated salary, etc.) users are interested in
  * Users must specify job title, location (city and state); Others are optional
  * @author Bo Jiang
@@ -39,9 +39,14 @@ public class URLGenerator {
 	}
 
 	public String generateURL() {
+		// base URL
 		String url = "https://www.indeed.com/jobs?";
+		
+		// add job title
 		String[] jts = this.jobTitle.trim().split("\\s+");
 		url += ("q=" + String.join("+", jts));
+		
+		// add estimated salary
 		if(!this.estimatedSalary.equals("None")) {
 			try {
 				int estimatedSalaryInt = Integer.parseInt(this.estimatedSalary);
@@ -60,10 +65,12 @@ public class URLGenerator {
 			}
 
 		}
-
+		
+		// add location
 		String[] cities = this.city.trim().split("\\s+");
 		url += ("&l=" + String.join("+", cities) + "%2C+" + this.state.trim());
 
+		// add distance
 		if(!this.distance.equals("None")) {
 			try {
 				Integer.parseInt(this.distance);
@@ -74,7 +81,8 @@ public class URLGenerator {
 			}
 		}
 
-		if(!this.jobTitle.equals("None")){
+		// add job type
+		if(!this.jobType.equals("None")){
 			if(!(this.jobType.equals("full-time") || this.jobType.equals("internship") || jobType.equals("contract") ||
 					this.jobType.equals("part-time") || this.jobType.equals("temporary") || this.jobType.equals("commission"))) {
 				System.out.println("Invalid input for job type !");
@@ -83,6 +91,7 @@ public class URLGenerator {
 			}	
 		}
 
+		// add experience level
 		if(!this.experienceLevel.equals("None")) {
 			if(!(this.experienceLevel.equals("senior level") || this.experienceLevel.equals("mid level") || 
 					this.experienceLevel.equals("entry level"))) {
@@ -94,6 +103,7 @@ public class URLGenerator {
 			}
 		}
 
+		// add sort by
 		if(!this.sortBy.equals("None")) {
 			if(!(this.sortBy.equals("date") || this.sortBy.equals("relevance"))) {
 				System.out.println("Invalid input for sort by !");
@@ -107,12 +117,5 @@ public class URLGenerator {
 
 		return url;
 	}
-
-
-	public static void main(String[] args) {
-		URLGenerator g = new URLGenerator("software engineer", "90000", "Tempe", "AZ", "None", "internship", "None", "None");
-		System.out.println(g.getURL());
-	}
-
 
 }

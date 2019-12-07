@@ -20,6 +20,7 @@ public class Job {
 		this.salary = "None";
 		this.jobDescription = "None";
 	}
+	
 	public Job(String jobTitle, String location, String company, String salary, String jobDescription) {
 		this.jobTitle = jobTitle;
 		this.location = location;
@@ -27,6 +28,7 @@ public class Job {
 		this.salary = salary;
 		this.jobDescription = jobDescription;
 	}
+	
 	public String getJobTitle() {
 		return this.jobTitle;
 	}
@@ -68,11 +70,11 @@ public class Job {
 	}
 
 	/**
-	 * Return string representation of a job. Each piece of information is separated by "|"
-	 * @return a string has job title, location, company, salary and job description of a job posting
+	 * Return string representation of a job. 
+	 * Each piece of information is separated by "|"
+	 * @return a string has job title, location, company, salary and job description of a job posting separated by "|"
 	 */
 	public String convertToString() {
 		return this.getJobTitle() + "|" + this.getLocation() + "|" + this.getCompany() + "|" + this.getSalary() + "|" + this.getJobDescription() + "|" + "\n";
 	}
-
 }
