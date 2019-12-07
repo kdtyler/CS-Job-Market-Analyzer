@@ -10,7 +10,9 @@ public class DataAnalysis {
 	
 	//Constructer that reads in text file to create jobs array and cleans up location information
 	public DataAnalysis () {
-		String inputFile = "output.txt";
+
+		//****** NEED TO EDIT THIS ******
+		String inputFile = "software_engineer_boston.txt";
 		File f = new File(inputFile);
 		try {
 			Scanner s = new Scanner(f);
@@ -46,7 +48,7 @@ public class DataAnalysis {
 	}
 
 	//shows number of jobs by area
-	public void numberOfJobs() {
+	public String numberOfJobs() {
 		HashMap<String, Integer> locationCount = new HashMap<String, Integer>();
 		//place job into hash map if it does not exist and count matches
 		for (Job j : jobs) {
@@ -68,25 +70,32 @@ public class DataAnalysis {
 			String s = key + " -- " + sorted.get(key)+" jobs"; 
 			results.add(s);
 		}
-		System.out.println();
-		System.out.println("Your searched criteria contains a total of " + jobs.size()+" jobs. The most popular locations include:");
+		StringBuilder outputData = new StringBuilder("\n"); 
+	
+		String header = "Your searched criteria contains a total of " + jobs.size()+ " jobs. The most popular areas in the location include:";
+		outputData.append(header + "\n");
+		
 		
 		//Print out results up to 5 locations & all if less than or equal to 5
 		if (results.size() > 5) {
 			for (int i = 0; i < 5; i++) {
-				System.out.println((i+1) +". "+ results.get(i));
+				String line = (i+1) +". "+ results.get(i)+"\n";
+				outputData.append(line);
 			}
 		}
 		else {
 			for (int i = 0; i < results.size(); i++) {
-				String s = results.get(i);
-				System.out.println((i+1)+". "+s);
+				String line = (i+1)+". "+results.get(i)+"\n";
+				outputData.append(line);
 			}
 		}
+		String out = outputData.toString();
+		System.out.print(out);
+		return out; 
 	}
 	
-	//Return list of all companies who are have job openings
-	public void topNCompaniesHiring(int n) {
+	//Return list of all companies who are have job openings otherwise top 5
+	public String topNCompaniesHiring(int n) {
 		HashMap<String, Integer> companyCount = new HashMap<>(); 
 		//add each company to hash map and count job openings
 		for (Job j : jobs) {
@@ -107,23 +116,75 @@ public class DataAnalysis {
 			String s = key + " -- " + sorted.get(key)+" job openings"; 
 			results.add(s);
 		}
-		System.out.println();
-		System.out.println("Your search criteria contains "+ jobCompanies.size() +" companies looking to hire for this position in the area. The most job openings are by the following Comapnies:");
+		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following Comapnies:\n";
+		StringBuilder outputData = new StringBuilder("\n");
+		outputData.append(header);
+		
 		//Print out the statements based on user input
 		if (results.size() > n) {
 			for (int i = 0; i < n; i++) {
-				System.out.println((i+1) + ". "+results.get(i));
+				String line = (i+1) + ". "+ results.get(i) + "\n"; 
+				outputData.append(line);
 			}
 		}
 		else {
 			for (int i =0; i<results.size(); i++) {
-				String s = results.get(i);
-				System.out.println((i+1) +". "+ s);
+				String line = (i+1) + ". " + results.get(i) + "\n";
+				outputData.append(line);
 			}
 		}
+		String out = outputData.toString();
+		System.out.print(out);
+		return out;
 	}
+	
+	//same method if no int value of results is provided
+	public String topNCompaniesHiring() {
+		HashMap<String, Integer> companyCount = new HashMap<>(); 
+		//add each company to hash map and count job openings
+		for (Job j : jobs) {
+			if (companyCount.containsKey(j.getCompany())) {
+				int value = companyCount.get(j.getCompany());
+				companyCount.put(j.getCompany(), value + 1); 
+			}
+			else {
+				companyCount.put(j.getCompany(), 1);
+			}
+		}
+		//create a new sorted hash map in descending order by values
+		LinkedHashMap<String, Integer> sorted = new LinkedHashMap<>(); 
+		companyCount.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEachOrdered(x -> sorted.put(x.getKey(), x.getValue()));
+		//Create the print statements and save them to an array
+		ArrayList<String> results = new ArrayList<>(); 
+		for (String key : sorted.keySet()) {
+			String s = key + " -- " + sorted.get(key)+" job openings"; 
+			results.add(s);
+		}
+		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following Comapnies:\n";
+		StringBuilder outputData = new StringBuilder("\n");
+		outputData.append(header);
+		
+		//Print out the statements based on user input
+		if (results.size() > 5) {
+			for (int i = 0; i < 5; i++) {
+				String line = (i+1) + ". "+ results.get(i) + "\n"; 
+				outputData.append(line);
+			}
+		}
+		else {
+			for (int i =0; i<results.size(); i++) {
+				String line = (i+1) + ". " + results.get(i) + "\n";
+				outputData.append(line);
+			}
+		}
+		String out = outputData.toString();
+		System.out.print(out);
+		return out;
+		
+	}
+	
 	// Calculate the average starting salary & highest paying job
-	public void salaryInformation() {
+	public String salaryInformation() {
 		ArrayList<Integer> allSalaries = new ArrayList<>();
 		Job highestSalaryJob = null; 
 		int highestSalary = 0; 
@@ -164,23 +225,54 @@ public class DataAnalysis {
 		}
 		int averageSalary = (int) Math.round(sum /  (double) allSalaries.size());
 		
-		System.out.println();
-		System.out.println("The average Starting Salary for your searched criteria is $" + averageSalary +". ");
-		System.out.println();
-		System.out.println("The highest paying job for your search criteria is the follwing:");
-		System.out.println("JOB:\t\t"+highestSalaryJob.getJobTitle());
-		System.out.println("LOCATION:\t"+highestSalaryJob.getLocation());
-		System.out.println("COMPANY:\t"+ highestSalaryJob.getCompany());
-		System.out.println("SALARY:\t\t$"+highestSalary);
-	}
+		StringBuilder outputData = new StringBuilder("\n");
 		
+		String line1 = "The average Starting Salary for your searched criteria is $" + averageSalary +". \n";
+		String line2 = "The highest paying job for your search criteria is the follwing:\n\n";
+		String line3 = "JOB:\t\t" + highestSalaryJob.getJobTitle() + "\n"; 
+		String line4 = "LOCATION:\t" + highestSalaryJob.getLocation() + "\n";
+		String line5 = "COMPANY:\t" + highestSalaryJob.getCompany() + "\n";
+		String line6 = "SALARY:\t\t$" + highestSalary + "\n"; 
+		
+		outputData.append(line1);
+		outputData.append(line2);
+		outputData.append(line3);
+		outputData.append(line4);
+		outputData.append(line5);
+		outputData.append(line6);
+		
+		String out = outputData.toString();
+		System.out.println(out);
+		return out;
+		
+	}
+	//getters for the unique job titles, companies, locations and array Jobs for all data	
+	public ArrayList<Job> getJobs() {
+		return jobs;
+	}
+	public ArrayList<String> getJobTitles() {
+		return jobTitles;
+	}
+	public ArrayList<String> getJobLocations() {
+		return jobLocations;
+	}
+	public ArrayList<String> getJobCompanies() {
+		return jobCompanies;
+	}
+	// generate setter for j unit testing only
+	public void setJobs(ArrayList<Job> jobs) {
+		this.jobs = jobs;
+	}
 	
 	
 	public static void main(String[] args) {
 		DataAnalysis d3 = new DataAnalysis();
-		d3.topNCompaniesHiring(3);
 		d3.numberOfJobs();
+		d3.topNCompaniesHiring();
 		d3.salaryInformation();
-	}
+		System.out.println(d3.getJobCompanies().size());
 
+	}
+	
 }
+	
