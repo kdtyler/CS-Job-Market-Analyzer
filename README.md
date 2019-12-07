@@ -37,12 +37,9 @@ Instruction on web scrapping:
    The program reads in parameters from input file you configured in step 5. Then it searches for job postings. For each job posting, the program extracts job title, location, company, salary and job description. Finally, it saves the output data to the output file you specified in step 5. 
 
 
-GUI Update (Kevin 11/11/19)
+Instructions on GUI
 
-1. Download JavaFX using the instructions in the link provided: https://www.tutorialkart.com/javafx/install-javafx-in-eclipse-ide/
-   One thing not in the instructions is that you most likely need to directly add the Neon page to make it a list to choose from, and you    can do so by using the Add button and typing in "Neon" and the webpage directly.
+Download JavaFX using the instructions in the link provided: https://www.tutorialkart.com/javafx/install-javafx-in-eclipse-ide/
+One thing not in the instructions is that you most likely need to directly add the Neon page to make it a list to choose from, and you can do so by using the Add button and typing in "Neon" and the webpage directly. A common error is to not have spaces around the "-" symbol when typing "Neon - websiteURL". 
    
- 2. JavaFX is a very user-friendly application, especially for simple things like what we need to do. For now I've created a simple GUI       that let's a user input areas of interest, and I played around with a few different options (pull down lists, fill-in bubbles, text 
-    boxes). Pressing 'Search' won't do anything yet, so maybe two goals going forward would be 1. Identifying one very easy thing to show 
-    the answer to or graph (i.e. we will pick the user's options for them to test the interface between GUI and your guys' code). and 2.
-    Figure out what other types of options to provide (time-based, etc.). 
+ 
