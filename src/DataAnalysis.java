@@ -8,10 +8,10 @@ public class DataAnalysis {
 	private ArrayList<String> jobLocations = new ArrayList<String>();
 	private ArrayList<String> jobCompanies = new ArrayList<String>();
 	
-	//Constructer that reads in text file to create jobs array and cleans up location information
+
 	public DataAnalysis () {
 
-		//****** NEED TO EDIT THIS ******
+		// read in the text file created from the webscrapping 
 		String inputFile = ".\\output\\output.txt";
 		File f = new File(inputFile);
 		try {
@@ -40,14 +40,32 @@ public class DataAnalysis {
 		}
 	}
 	//helper method to clean locations
+	/**
+	 * @author amannischal
+	 * @param text - takes in a location text like Boston, MA (08040) Downtown
+	 * @return returns a cleaned version of test like Boston, MA based on location of ',' if it 
+	 * does not contain a comma then it return the whole text unedited
+	 */
 	public String cleanLocation (String text) {
 		int n = text.indexOf(",");
-		//takes location up to the state abbreviation 
-		String cleanString = text.substring(0, n+4);
-		return cleanString; 
+		//takes location up to the state abbreviation
+		//If it does not contain the State and only country then return the full string un-edited
+		if (n == -1) {
+			return text;
+		}
+		else {
+			String cleanString = text.substring(0, n+4);
+			return cleanString; 
+		} 
 	}
 
 	//shows number of jobs by area
+	/**
+	 * @author amannischal
+	 * @return reads the jobs array made from constructor and returns a String statements of the total jobs
+	 * and a numbered list of the most popular areas and how many jobs are in each area
+	 * 
+	 */
 	public String numberOfJobs() {
 		HashMap<String, Integer> locationCount = new HashMap<String, Integer>();
 		//place job into hash map if it does not exist and count matches
@@ -95,6 +113,13 @@ public class DataAnalysis {
 	}
 	
 	//Return list of all companies who are have job openings otherwise top 5
+	/**
+	 * @author amannischal
+	 * @param n - integer value of the limit of how many companies you want returned from the method. 
+	 * @return A String of statements which tells you how many companies are hiring and also a numbered list of the top
+	 * companies with job openings. The numbered list is based on the limit specified in the parameter. If the results are less
+	 * than the parameter value then all of the results are returned.
+	 */
 	public String topNCompaniesHiring(int n) {
 		HashMap<String, Integer> companyCount = new HashMap<>(); 
 		//add each company to hash map and count job openings
@@ -116,7 +141,7 @@ public class DataAnalysis {
 			String s = key + " -- " + sorted.get(key)+" job openings"; 
 			results.add(s);
 		}
-		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following Comapnies:\n";
+		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following companies:\n";
 		StringBuilder outputData = new StringBuilder("\n");
 		outputData.append(header);
 		
@@ -139,6 +164,11 @@ public class DataAnalysis {
 	}
 	
 	//same method if no int value of results is provided
+	/**
+	 * @author amannischal
+	 * @return This method is overloaded to handle if no parameter value is entered. It will return the total companies hiring
+	 * and automatically limit the results of the numbered list to top 5, and all the results if the total companies is less than 5
+	 */
 	public String topNCompaniesHiring() {
 		HashMap<String, Integer> companyCount = new HashMap<>(); 
 		//add each company to hash map and count job openings
@@ -160,7 +190,7 @@ public class DataAnalysis {
 			String s = key + " -- " + sorted.get(key)+" job openings"; 
 			results.add(s);
 		}
-		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following Comapnies:\n";
+		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following companies:\n";
 		StringBuilder outputData = new StringBuilder("\n");
 		outputData.append(header);
 		
@@ -184,6 +214,11 @@ public class DataAnalysis {
 	}
 	
 	// Calculate the average starting salary & highest paying job
+	/**
+	 * @author amannischal
+	 * @return This method reads the jobs array created in the constructor and returns String statements of the average 
+	 * starting salary and information on the highest paying job from the search results including job, location, salary, and hiring company
+	 */
 	public String salaryInformation() {
 		ArrayList<Integer> allSalaries = new ArrayList<>();
 		Job highestSalaryJob = null; 
@@ -224,15 +259,18 @@ public class DataAnalysis {
 			sum += salary; 
 		}
 		int averageSalary = (int) Math.round(sum /  (double) allSalaries.size());
+		//Convert integers to number format with commas 
+		String avgSalaryString =  String.format("%,d", averageSalary);
+		String highestSalaryString = String.format("%,d", highestSalary);
 		
 		StringBuilder outputData = new StringBuilder("\n");
 		
-		String line1 = "The average Starting Salary for your searched criteria is $" + averageSalary +". \n";
+		String line1 = "The average Starting Salary for your searched criteria is $" + avgSalaryString +". \n";
 		String line2 = "The highest paying job for your search criteria is the follwing:\n\n";
-		String line3 = "JOB:\t\t" + highestSalaryJob.getJobTitle() + "\n"; 
+		String line3 = "JOB:\t\t\t" + highestSalaryJob.getJobTitle() + "\n"; 
 		String line4 = "LOCATION:\t" + highestSalaryJob.getLocation() + "\n";
 		String line5 = "COMPANY:\t" + highestSalaryJob.getCompany() + "\n";
-		String line6 = "SALARY:\t\t$" + highestSalary + "\n"; 
+		String line6 = "SALARY:\t\t$" + highestSalaryString + "\n"; 
 		
 		outputData.append(line1);
 		outputData.append(line2);
@@ -270,7 +308,6 @@ public class DataAnalysis {
 		d3.numberOfJobs();
 		d3.topNCompaniesHiring();
 		d3.salaryInformation();
-		System.out.println(d3.getJobCompanies().size());
 
 	}
 	
