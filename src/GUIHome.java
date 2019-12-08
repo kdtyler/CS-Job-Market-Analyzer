@@ -124,16 +124,19 @@ public class GUIHome extends Application {
       // Occurs when user presses the "Search" button
       buttonRegister.setOnAction(e -> {
     	  
+    	  // Creating GUIHelper object to help parse the correct strings
+    	  GUIHomeHelper guiHH = new GUIHomeHelper() ;
+    	  
     	  // Pulling out all user input and saving in variables to send to DataAnalysis.java class
-    	  String userJobTitle = TextfieldCheck(jobTitleText.getText());
+    	  String userJobTitle = guiHH.TextfieldCheck(jobTitleText.getText());
     	  String state = (String) stateComboBox.getValue();
-    	  String city = TextfieldCheck(cityOfInterestText.getText());
-    	  String estimatedSalary = TextfieldCheck(estimatedSalaryText.getText());
+    	  String city = guiHH.TextfieldCheck(cityOfInterestText.getText());
+    	  String estimatedSalary = guiHH.TextfieldCheck(estimatedSalaryText.getText());
     	  RadioButton selectedRadioButton = (RadioButton) jobType.getSelectedToggle();
     	  String userInputToggleJobType = selectedRadioButton.getText();
-    	  String experienceChoice = ExperienceLevelCheck((String) educationChoiceBox.getValue());
+    	  String experienceChoice = guiHH.ExperienceLevelCheck((String) educationChoiceBox.getValue());
     	  String distanceChoice = (String) distanceChoiceBox.getValue();
-    	  String distanceChoiceNumber = distanceConverter(distanceChoice);
+    	  String distanceChoiceNumber = guiHH.distanceConverter(distanceChoice);
     	  
     	  // Print to console to check user inputs. (Actual output user sees is in separate window
     	  System.out.println("Job Title: " + userJobTitle);
@@ -270,59 +273,6 @@ public class GUIHome extends Application {
       
       // Displaying the window with its contents
       stage.show();  
-   }
-   
-   
-   /**
-    * This method checks if the user did not input anything in the passed in text from a text field,
-    * and returns "None" if they have not, or the string as it is if they have.
-    * @param stringToCheck
-    * @return stringToCheck or "None"
-    */
-   String TextfieldCheck(String stringToCheck) {
-	   
-	   if(stringToCheck.equals("")) {
-		   return "None" ;
-	   }
-	   
-	   return stringToCheck;
-   }
-   
-   /**
-    * This method checks if the experience level is set to default, and returns "None" if it is (for error-checking
-    * purposes in the WebScrapper.java class). 
-    * @param stringToCheck
-    * @return stringToCheck or "None"
-    */
-   String ExperienceLevelCheck(String stringToCheck) {
-	   
-	   if(stringToCheck.equals("Default (all)")) {
-		   return "None" ;
-	   }
-	   
-	   return stringToCheck;
-   }
-   
-   /**
-    * This method converts the distance string from the user to just the number (i.e. "<10 miles" becomes "10")
-    * @param distance
-    * @return distanceNumber
-    */
-   String distanceConverter(String distance) {
-	   
-	   String distanceNumber = "None" ;
-	  
-	   if (distance.contains("10")) {
-		   distanceNumber = "10";
-	   } else if (distance.contains("25")) {
-		   distanceNumber = "25";
-	   } else if (distance.contains("50")) {
-		   distanceNumber = "50";
-	   } else if (distance.contains("100")) {
-		   distanceNumber = "100";
-	   }
-	   
-	   return distanceNumber;
    }
    
    /**
