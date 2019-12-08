@@ -74,7 +74,7 @@ public class WebScrapper {
 		// Connect a driver to a program
 		System.setProperty("webdriver.chrome.driver", ".\\chromedriver\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		// Go to url
 		driver.get(this.url);
 		String original_window = driver.getWindowHandle();
@@ -137,6 +137,7 @@ public class WebScrapper {
 			}
 			Job job = new Job(jobTitle, location, company, salary, jobDescription);
 			jobs.add(job);
+			System.out.println(job.convertToString());
 		}
 
 		driver.close();

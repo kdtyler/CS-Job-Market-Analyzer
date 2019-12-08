@@ -29,7 +29,9 @@ public class WebScrapperRunner {
 		this.outputFileName = outputFileName;
 		this.totalNumOfJobs = 0;
 		this.currNumOfJobs = 0;
-		this.currNumOfPages = 0;
+		WebScrapper firstPage = new WebScrapper(this.baseURL);
+		firstPage.checkNumOfJobs();
+		this.totalNumOfJobs = firstPage.getTotalNumOfJobs();
 	}
 
 
@@ -53,10 +55,6 @@ public class WebScrapperRunner {
 		return this.currNumOfPages;
 	}
 
-	public void setTotalNumOfJobs(int n) {
-		this.totalNumOfJobs = n;
-	}
-
 	public void addToCurrNumOfPages(int n) {
 		this.currNumOfPages += n;
 	}
@@ -68,12 +66,6 @@ public class WebScrapperRunner {
 	 * Extract job posting data for each of the URLs, save data into a .txt file
 	 */
 	public void Run() {
-		// Open first page and check how many job postings are returned.
-		WebScrapper firstPage = new WebScrapper(this.baseURL);
-		firstPage.checkNumOfJobs();
-		this.setTotalNumOfJobs(firstPage.getTotalNumOfJobs());
-		System.out.println("Total number of job postings is " + firstPage.getTotalNumOfJobs());
-
 		// Scrape data for all available job postings. The program will scrape up to 100 pages
 		while(this.getCurrNumOfJobs() < this.getTotalNumOfJobs() && this.getCurrNumOfPages() < 100) {
 			String url = this.getBaseURL() + "&start=" + Integer.toString(this.getCurrNumOfPages() * 10);			
