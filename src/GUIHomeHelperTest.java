@@ -48,6 +48,20 @@ GUIHomeHelper guiHH = new GUIHomeHelper();
 		String checkedString = guiHH.distanceConverter(stringToCheck); 
 		assertEquals("25", checkedString);
 	}
+	
+	@Test
+	public void StateCheck1() {
+		String stringToCheck = "Default (all states)";
+		String checkedString = guiHH.StateCheck(stringToCheck); 
+		assertEquals("None", checkedString);
+	}
+	
+	@Test
+	public void StateCheck2() {
+		String stringToCheck = "AZ";
+		String checkedString = guiHH.StateCheck(stringToCheck); 
+		assertEquals("AZ", checkedString);
+	}
 
 }
 

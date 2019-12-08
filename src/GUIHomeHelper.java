@@ -37,6 +37,19 @@ public class GUIHomeHelper {
 	   }
 	   
 	   /**
+	    * This method checks if the State is set to default, and returns None if it is
+	    * @param stringToCheck
+	    * @return stringToCheck or "None"
+	    */
+	   String StateCheck(String stringToCheck) {
+		   if(stringToCheck.equals("Default (all states)")) {
+			   return "None";
+		   }
+		   
+		   return stringToCheck;
+	   }
+	   
+	   /**
 	    * This method converts the distance string from the user to just the number (i.e. "<10 miles" becomes "10")
 	    * @param distance
 	    * @return distanceNumber
