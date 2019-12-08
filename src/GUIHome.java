@@ -150,20 +150,27 @@ public class GUIHome extends Application {
     	  // Generates a valid URL to be used in WebScrapperRunner.java
     	  URLGenerator g = new URLGenerator(userJobTitle, estimatedSalary, city, state, distanceChoiceNumber, userInputToggleJobType, experienceChoice, "None");
     	  WebScrapperRunner wbr = new WebScrapperRunner(g.getURL(), "output.txt");
+    	  
+    	  String noJobsString = "";
+    	  String salaryInformationString = "";
+    	  String topNCompaniesHiringString = "";
+    	  String numberOfJobsString = "";
+    	  
     	  int numOfJobs = wbr.getTotalNumOfJobs();
     	  if(numOfJobs == 0) {
     		  System.out.println("No job posting matches search !");
-    		  System.exit(0);
+    		  noJobsString = "No job postings returned for search parameters." ;
+    	  } else {
+    		  wbr.Run(); // Creates and fills in output.txt file
+    		  
+    		  // DataAnalysis object created, uses output.txt file generated above
+        	  DataAnalysis da = new DataAnalysis();
+        	  
+        	  // Formated strings for output to user generated 
+        	  salaryInformationString = da.salaryInformation();
+        	  topNCompaniesHiringString = da.topNCompaniesHiring(10);
+        	  numberOfJobsString = da.numberOfJobs();
     	  }
-    	  wbr.Run(); // Creates and fills in output.txt file
-    	  
-    	  // DataAnalysis object created, uses output.txt file generated above
-    	  DataAnalysis da = new DataAnalysis();
-    	  
-    	  // Formated strings for output to user generated 
-    	  String salaryInformationString = da.salaryInformation();
-    	  String topNCompaniesHiringString = da.topNCompaniesHiring(10);
-    	  String numberOfJobsString = da.numberOfJobs();
     	  
     	  // Results header for output window
     	  Text results = new Text("Results");
@@ -192,15 +199,17 @@ public class GUIHome extends Application {
     	  outputStage.initOwner(stage);
     	  
     	  // Creating text for output into window
+    	  Text noJobsStringText = new Text(noJobsString);
     	  Text salaryInformationStringText = new Text(salaryInformationString);
     	  Text topNCompaniesHiringStringText = new Text(topNCompaniesHiringString);
     	  Text numberOfJobsStringText = new Text(numberOfJobsString);
     	  
     	  // Adding output text to output window
     	  secondaryLayout.add(results, 0, 0);
-    	  secondaryLayout.add(salaryInformationStringText, 0, 1);
-    	  secondaryLayout.add(topNCompaniesHiringStringText, 0, 2);
-    	  secondaryLayout.add(numberOfJobsStringText, 0, 3);
+    	  secondaryLayout.add(noJobsStringText, 0, 1);
+    	  secondaryLayout.add(salaryInformationStringText, 0, 2);
+    	  secondaryLayout.add(topNCompaniesHiringStringText, 0, 3);
+    	  secondaryLayout.add(numberOfJobsStringText, 0, 4);
     	  
     	  // Changing output window background color to LIGHTBLUE to match input window
     	  secondaryLayout.setStyle("-fx-background-color: LIGHTBLUE;");    
