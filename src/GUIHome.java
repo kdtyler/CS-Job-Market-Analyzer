@@ -151,6 +151,10 @@ public class GUIHome extends Application {
     	  URLGenerator g = new URLGenerator(userJobTitle, estimatedSalary, city, state, distanceChoiceNumber, userInputToggleJobType, experienceChoice, "None");
     	  WebScrapperRunner wbr = new WebScrapperRunner(g.getURL(), "output.txt");
     	  int numOfJobs = wbr.getTotalNumOfJobs();
+    	  if(numOfJobs == 0) {
+    		  System.out.println("No job posting matches search !");
+    		  System.exit(0);
+    	  }
     	  wbr.Run(); // Creates and fills in output.txt file
     	  
     	  // DataAnalysis object created, uses output.txt file generated above
