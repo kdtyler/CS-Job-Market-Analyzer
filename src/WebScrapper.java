@@ -137,7 +137,7 @@ public class WebScrapper {
 			}
 			Job job = new Job(jobTitle, location, company, salary, jobDescription);
 			jobs.add(job);
-			System.out.println(job.convertToString());
+			// System.out.println(job.convertToString());
 		}
 
 		driver.close();

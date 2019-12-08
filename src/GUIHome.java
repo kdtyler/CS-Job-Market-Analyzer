@@ -150,6 +150,7 @@ public class GUIHome extends Application {
     	  // Generates a valid URL to be used in WebScrapperRunner.java
     	  URLGenerator g = new URLGenerator(userJobTitle, estimatedSalary, city, state, distanceChoiceNumber, userInputToggleJobType, experienceChoice, "None");
     	  WebScrapperRunner wbr = new WebScrapperRunner(g.getURL(), "output.txt");
+    	  int numOfJobs = wbr.getTotalNumOfJobs();
     	  wbr.Run(); // Creates and fills in output.txt file
     	  
     	  // DataAnalysis object created, uses output.txt file generated above
