@@ -76,7 +76,7 @@ public class WebScrapperRunner {
 			this.addToCurrNumOfJobs(jobs.size());
 			this.addToCurrNumOfPages(1);
 			System.out.println("Page " + this.getCurrNumOfPages() + " is scrapped !");
-			System.out.println("There are " + this.getCurrNumOfJobs() + " number of jobs !");
+			// System.out.println("There are " + this.getCurrNumOfJobs() + " number of jobs !");
 		}
 		System.out.println("Done !");
 	}

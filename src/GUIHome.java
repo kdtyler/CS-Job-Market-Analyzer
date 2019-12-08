@@ -33,10 +33,11 @@ import javafx.stage.Stage;
  * statistics based on their search parameters.
  */
 public class GUIHome extends Application { 
-   
+
 	/**
 	 * The start method contains the creation of both the input GUI and output GUI
 	 **/
+
    @Override 
    public void start(Stage stage) {    
 	   

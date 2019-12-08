@@ -41,11 +41,14 @@ public class URLGenerator {
 	public String generateURL() {
 		// base URL
 		String url = "https://www.indeed.com/jobs?";
-		
+
 		// add job title
-		String[] jts = this.jobTitle.trim().split("\\s+");
-		url += ("q=" + String.join("+", jts));
-		
+		if(!this.jobTitle.equals("None")) {
+			String[] jts = this.jobTitle.trim().split("\\s+");
+			url += ("q=" + String.join("+", jts));			
+		}
+
+
 		// add estimated salary
 		if(!this.estimatedSalary.equals("None")) {
 			try {
@@ -65,10 +68,13 @@ public class URLGenerator {
 			}
 
 		}
-		
+
 		// add location
-		String[] cities = this.city.trim().split("\\s+");
-		url += ("&l=" + String.join("+", cities) + "%2C+" + this.state.trim());
+		if(!this.city.equals("None")) {
+			String[] cities = this.city.trim().split("\\s+");
+			url += ("&l=" + String.join("+", cities) + "%2C+" + this.state.trim());			
+		}
+
 
 		// add distance
 		if(!this.distance.equals("None")) {
@@ -118,4 +124,8 @@ public class URLGenerator {
 		return url;
 	}
 
+	public static void main(String[] args) {
+		URLGenerator g5 = new URLGenerator("machine learning engineer", "None", "San Francisco", "CA", "None", "None", "mid level", "None");
+		System.out.println(g5.getURL());
+	}
 }

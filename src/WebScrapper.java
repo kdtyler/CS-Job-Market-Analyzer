@@ -55,7 +55,6 @@ public class WebScrapper {
 		}
 		catch(org.openqa.selenium.NoSuchElementException e) {
 			// No job posting meets search criteria 
-			// System.out.println("No job posting matches search criteria");
 			// System.exit(0);
 		}
 		driver.close();
