@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * DataWriter class
+ * Writes job posting information to file
  * @author Bo Jiang
  *
  */

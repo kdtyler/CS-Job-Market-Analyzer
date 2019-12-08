@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 /**
  * WebScrapper class
+ * Scrapes a single page of job postings from indeed.com
  * @author Bo Jiang
  *
  */
@@ -30,10 +31,12 @@ public class WebScrapper {
 		return this.url;
 	}
 
-	// Check how many job postings are returned by a search
+	/**
+	 *  Check how many job postings are returned by a search
+	 *  If no job posting meets the search query, error message is printed
+	 */
 	public void checkNumOfJobs() {
-		System.setProperty("webdriver.chrome.driver", ".\\chromedriver\\chromedriver.exe"); //Bo's version
-		//System.setProperty("webdriver.chrome.driver", "\\Upenn_Files\\MCIT591\\final-project-csjobmarketanalyzer\\final-project-csjobmarketanalyzer\\chromedriver_win32\\chromedriver.exe"); //Kevin's version
+		System.setProperty("webdriver.chrome.driver", ".\\chromedriver\\chromedriver.exe"); 
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		driver.get(this.url);
@@ -42,13 +45,11 @@ public class WebScrapper {
 			// checks how many job postings are returned by search
 			String text = driver.findElement(By.id("searchCountPages")).getText();
 			text = text.replace("Page 1", "").replace("jobs", "").trim();
-			// System.out.println(text);
 			Pattern p = Pattern.compile("\\d{0,3},*\\d{1,3}");
 			Matcher m = p.matcher(text);
 			if(m.find()) {
 				String num = m.group(0).replace(",", "");
 				this.totalNumOfJobs = Integer.parseInt(num);
-				// System.out.println(this.totalNumOfJobs);
 			}
 			
 		}
@@ -115,6 +116,7 @@ public class WebScrapper {
 			/*
 			 * Click on each job posting and extract job description
 			 */
+			// Click on each job posting and open it in a new window
 			position.click();
 			String new_window = null;
 			for(String win: driver.getWindowHandles()) {
@@ -135,7 +137,6 @@ public class WebScrapper {
 			}
 			Job job = new Job(jobTitle, location, company, salary, jobDescription);
 			jobs.add(job);
-			// System.out.println(job.convertToString());
 		}
 
 		driver.close();
@@ -152,10 +153,4 @@ public class WebScrapper {
 		return this.numOfJobsOnCurrentPage;
 	}
 
-	/*
-	public static void main(String[] args) {
-		WebScrapper scrapper = new WebScrapper("https://www.indeed.com/jobs?q=machine+learning+engineer%24100%2C000&l=Tempe%2C+AZ");
-		scrapper.checkNumOfJobs();
-	}
-	*/
 }

@@ -1,0 +1,10 @@
+Name of Project: Job Market Analyzer
+
+Description: This java project consists of 3 parts. The first part is the GUI interface which the user first sees when they run the project. In this GUI the user will enter information relevant to the job they are searching for like job name, location, starting salary, and type of position (full time, part time, internship). Based on the user inputs the code then goes on to scrape data relvent to defined parameters in GUI from the indeed website and outputs the information to a output text file. When the text file is created the DataAnalysis class then reads the text file and creates a an array list of jobs. Job is a class also defined in the project which stores information from each job posting about title, location, salary, and job descriptions. once the DataAnalysis class creates the array list of jobs it then analyzes all the results to return relevant information on the total number of jobs, locations, companies as well as salary information such as the average starting salary for the search results and highest payinh job overall. 
+
+Job Breakdown: 
+Kevin Tyler - was the main contributer to the GUI interface which allows the user to input information for which job they are interested in obtaining results for, as well as displaying the results in a window for the results of the data analysis class
+Bo Jiang - was the main contributer to the webscrapping class which scraps the data from indeed website and outputs it to a text file. 
+Aman Nischal - was the main contributor for the DataAnalysis class which reads in the text file from the webscrapping class and creates a cleaned up array list of jobs, and then does analysis on the information from the text file. It returns String statements which present the information in a concise clean version for the user to read
+
+URL Link to GitHub: https://github.com/UPenn-CIT599/final-project-csjobmarketanalyzer
