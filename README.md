@@ -41,5 +41,7 @@ Instructions on GUI
 
 Download JavaFX using the instructions in the link provided: https://www.tutorialkart.com/javafx/install-javafx-in-eclipse-ide/
 One thing not in the instructions is that you most likely need to directly add the Neon page to make it a list to choose from, and you can do so by using the Add button and typing in "Neon" and the webpage directly. A common error is to not have spaces around the "-" symbol when typing "Neon - websiteURL". 
-   
- 
+
+Running the program:
+
+The program should be ran by pressing Run on the GUIHome.java class
