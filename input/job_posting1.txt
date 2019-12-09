@@ -1,4 +1,0 @@
-https://www.indeed.com/jobs?q=software+engineer&l=New+York%2C+NY
-1
-100
-.\\output\\software_engineer_NYC.txt

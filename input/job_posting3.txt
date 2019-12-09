@@ -1,4 +1,0 @@
-https://www.indeed.com/jobs?q=software+engineer&l=Seattle%2C+WA
-1
-100
-.\\output\\software_engineer_seattle.txt
