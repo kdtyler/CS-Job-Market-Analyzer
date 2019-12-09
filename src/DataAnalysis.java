@@ -12,7 +12,7 @@ public class DataAnalysis {
 	public DataAnalysis () {
 
 		// read in the text file created from the webscrapping 
-		String inputFile = ".\\output\\output.txt";
+		String inputFile = "output.txt";
 		File f = new File(inputFile);
 		try {
 			Scanner s = new Scanner(f);
