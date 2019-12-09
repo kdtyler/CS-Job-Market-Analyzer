@@ -14,25 +14,9 @@ Instruction on web scrapping:
   
 4. Configure WebScrapper.java
    
-   In line 32, set the second argument of System.setProperty() function to the path for the .exe file from step 1.
+   In line 39 and 74, set the second argument of System.setProperty() function to the path for the .exe file from step 1.
    
-5. Configure input file
-
-   In the input folder, create a .txt file for the job postings that you want to pull from indeed.com. Then, type in the following formation:
-   
-      line 1: a valid URL for job postings. The instruction for constructing a valid URL can be found in URL_rules.docx.
-   
-      line 2: the first page of search results that you want to pull data
-      
-      line 3: the last page of search results that you want to pull data
-   
-      line 4: the name of output file.
-
-6. Configure WebScrapperRunner.java
-
-   In line 48, input the location of the .txt file you configured in step 5 as a string.
-   
-7. Run WebScrapperRunner.java in Eclipse
+5. Run WebScrapperRunner.java in Eclipse
 
    The program reads in parameters from input file you configured in step 5. Then it searches for job postings. For each job posting, the program extracts job title, location, company, salary and job description. Finally, it saves the output data to the output file you specified in step 5. 
 
