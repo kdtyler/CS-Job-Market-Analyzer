@@ -241,6 +241,28 @@ public class DataAnalysis {
 						highestSalaryJob = j; 
 					}
 				}
+				//salary stated in monthly
+				else if (salary.contains("month")){
+					salary = salary.replaceAll("[^\\d.]", "");
+					int begSalary = Integer.parseInt(salary) * 12;
+					allSalaries.add(begSalary);
+					if (begSalary > highestSalary) {
+						highestSalary = begSalary;
+						highestSalaryJob = j;
+					}
+				}
+				
+				//salary stated in hours estimated a 40 hour work week with 52 weeks per year
+				else if (salary.contains("hour")) {
+					salary = salary.replaceAll("[^\\d.]", "");
+					int begSalary = Integer.parseInt(salary) * 2080;
+					allSalaries.add(begSalary);
+					if (begSalary > highestSalary) {
+						highestSalary = begSalary;
+						highestSalaryJob = j;
+					}
+				}
+				
 				//Same as above but for single salary value listed ie ("200,000 a year")
 				else {
 					salary = salary.replaceAll("[^\\d.]", "");
