@@ -3,7 +3,7 @@ import java.util.*;
 import org.junit.Test;
 
 public class DataAnalysisTest {
-	DataAnalysis da = new DataAnalysis();
+	DataAnalysis da = new DataAnalysis("software_engineer_boston.txt");
 
 	@Test
 	public void testCleanLocation() {

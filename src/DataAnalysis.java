@@ -3,20 +3,22 @@ import java.util.*;
 
 public class DataAnalysis {
 	// Array list of jobs, unique locations and companies and locations
+	private String inputFile;
 	private ArrayList<Job> jobs = new ArrayList<Job>();
 	private ArrayList<String> jobTitles = new ArrayList<String>();
 	private ArrayList<String> jobLocations = new ArrayList<String>();
 	private ArrayList<String> jobCompanies = new ArrayList<String>();
-	
 
-	public DataAnalysis () {
+
+	public DataAnalysis (String inputFileName) {
 
 		// read in the text file created from the webscrapping 
-		String inputFile = "output.txt";
-		File f = new File(inputFile);
+		this.inputFile = inputFileName;
+
+		File f = new File(this.inputFile);
 		try {
 			Scanner s = new Scanner(f);
-			
+
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
 				// split job information based on delimter
@@ -25,9 +27,9 @@ public class DataAnalysis {
 				lineData[1] = cleanLocation(lineData[1]);
 				//create a new job and it to the jobs array list
 				Job job = new Job (lineData[0],lineData[1],lineData[2],lineData[3],lineData[4]);
-		
+
 				jobs.add(job); 
-				
+
 				// create arrays of all the unique job titles, location, and companies
 				if (!jobTitles.contains(lineData[0])) {jobTitles.add(lineData[0]);}
 				if (!jobLocations.contains(lineData[1])) {jobLocations.add(lineData[1]);}
@@ -81,7 +83,7 @@ public class DataAnalysis {
 		// create a new sorted hash map
 		LinkedHashMap<String, Integer> sorted = new LinkedHashMap<>(); 
 		locationCount.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEachOrdered(x -> sorted.put(x.getKey(), x.getValue()));
-		
+
 		//Create an array list of results that show locations and number of jobs
 		ArrayList<String> results = new ArrayList<>(); 
 		for (String key : sorted.keySet()) {
@@ -89,11 +91,11 @@ public class DataAnalysis {
 			results.add(s);
 		}
 		StringBuilder outputData = new StringBuilder("\n"); 
-	
+
 		String header = "Your searched criteria contains a total of " + jobs.size()+ " jobs. The most popular areas in the location include:";
 		outputData.append(header + "\n");
-		
-		
+
+
 		//Print out results up to 5 locations & all if less than or equal to 5
 		if (results.size() > 5) {
 			for (int i = 0; i < 5; i++) {
@@ -111,7 +113,7 @@ public class DataAnalysis {
 		System.out.print(out);
 		return out; 
 	}
-	
+
 	//Return list of all companies who are have job openings otherwise top 5
 	/**
 	 * @author amannischal
@@ -144,7 +146,7 @@ public class DataAnalysis {
 		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following companies:\n";
 		StringBuilder outputData = new StringBuilder("\n");
 		outputData.append(header);
-		
+
 		//Print out the statements based on user input
 		if (results.size() > n) {
 			for (int i = 0; i < n; i++) {
@@ -162,7 +164,7 @@ public class DataAnalysis {
 		System.out.print(out);
 		return out;
 	}
-	
+
 	//same method if no int value of results is provided
 	/**
 	 * @author amannischal
@@ -193,7 +195,7 @@ public class DataAnalysis {
 		String header = "Your search criteria contains "+ jobCompanies.size() + " companies looking to hire for this position in the area. The most job openings are by the following companies:\n";
 		StringBuilder outputData = new StringBuilder("\n");
 		outputData.append(header);
-		
+
 		//Print out the statements based on user input
 		if (results.size() > 5) {
 			for (int i = 0; i < 5; i++) {
@@ -210,9 +212,9 @@ public class DataAnalysis {
 		String out = outputData.toString();
 		System.out.print(out);
 		return out;
-		
+
 	}
-	
+
 	// Calculate the average starting salary & highest paying job
 	/**
 	 * @author amannischal
@@ -223,7 +225,7 @@ public class DataAnalysis {
 		ArrayList<Integer> allSalaries = new ArrayList<>();
 		Job highestSalaryJob = null; 
 		int highestSalary = 0; 
-		
+
 		for (Job j : jobs) {
 			String salary = j.getSalary();
 			//compute salary only if data does not say none
@@ -251,7 +253,7 @@ public class DataAnalysis {
 						highestSalaryJob = j;
 					}
 				}
-				
+
 				//salary stated in hours estimated a 40 hour work week with 52 weeks per year
 				else if (salary.contains("hour")) {
 					salary = salary.replaceAll("[^\\d.]", "");
@@ -262,7 +264,7 @@ public class DataAnalysis {
 						highestSalaryJob = j;
 					}
 				}
-				
+
 				//Same as above but for single salary value listed ie ("200,000 a year")
 				else {
 					salary = salary.replaceAll("[^\\d.]", "");
@@ -284,27 +286,27 @@ public class DataAnalysis {
 		//Convert integers to number format with commas 
 		String avgSalaryString =  String.format("%,d", averageSalary);
 		String highestSalaryString = String.format("%,d", highestSalary);
-		
+
 		StringBuilder outputData = new StringBuilder("\n");
-		
+
 		String line1 = "The average Starting Salary for your searched criteria is $" + avgSalaryString +". \n";
 		String line2 = "The highest paying job for your search criteria is the follwing:\n\n";
 		String line3 = "JOB:\t\t\t" + highestSalaryJob.getJobTitle() + "\n"; 
 		String line4 = "LOCATION:\t" + highestSalaryJob.getLocation() + "\n";
 		String line5 = "COMPANY:\t" + highestSalaryJob.getCompany() + "\n";
 		String line6 = "SALARY:\t\t$" + highestSalaryString + "\n"; 
-		
+
 		outputData.append(line1);
 		outputData.append(line2);
 		outputData.append(line3);
 		outputData.append(line4);
 		outputData.append(line5);
 		outputData.append(line6);
-		
+
 		String out = outputData.toString();
 		System.out.println(out);
 		return out;
-		
+
 	}
 	//getters for the unique job titles, companies, locations and array Jobs for all data	
 	public ArrayList<Job> getJobs() {
@@ -323,8 +325,8 @@ public class DataAnalysis {
 	public void setJobs(ArrayList<Job> jobs) {
 		this.jobs = jobs;
 	}
-	
-	
+
+	/*
 	public static void main(String[] args) {
 		DataAnalysis d3 = new DataAnalysis();
 		d3.numberOfJobs();
@@ -332,6 +334,6 @@ public class DataAnalysis {
 		d3.salaryInformation();
 
 	}
-	
+	*/
 }
-	
+

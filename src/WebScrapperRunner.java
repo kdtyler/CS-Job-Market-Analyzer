@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +12,8 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.google.common.io.Files;
 
 /**
  * WebScrapperRunner class
@@ -62,10 +67,21 @@ public class WebScrapperRunner {
 	public void addToCurrNumOfJobs(int n) {
 		this.currNumOfJobs += n;
 	}
+	
 	/*
 	 * Extract job posting data for each of the URLs, save data into a .txt file
 	 */
 	public void Run() {
+		FileWriter fw;
+		try {
+			fw = new FileWriter(this.outputFileName, false);
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//File f = new File(this.outputFileName);
+		
 		// Scrape data for all available job postings. The program will scrape up to 100 pages
 		while(this.getCurrNumOfJobs() < this.getTotalNumOfJobs() && this.getCurrNumOfPages() < 100) {
 			String url = this.getBaseURL() + "&start=" + Integer.toString(this.getCurrNumOfPages() * 10);			

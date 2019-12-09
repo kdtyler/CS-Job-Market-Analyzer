@@ -165,7 +165,7 @@ public class GUIHome extends Application {
 				wbr.Run(); // Creates and fills in output.txt file
 
 				// DataAnalysis object created, uses output.txt file generated above
-				DataAnalysis da = new DataAnalysis();
+				DataAnalysis da = new DataAnalysis(wbr.getOutputFileName());
 
 				// Formated strings for output to user generated 
 				salaryInformationString = da.salaryInformation();
