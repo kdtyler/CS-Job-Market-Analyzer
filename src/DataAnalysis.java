@@ -230,8 +230,37 @@ public class DataAnalysis {
 			String salary = j.getSalary();
 			//compute salary only if data does not say none
 			if (!salary.contentEquals("None")) {
+				//if contains hourly salary band
+				if (salary.contains("-") && salary.contains("hour")) {
+					String[] salaryBand = salary.split("-");
+					//remove all the non digit characters from the String of salaries
+					salaryBand[0] = salaryBand[0].replaceAll("[^\\d.]", "");
+					//multiply by 40 hours and 52 weeks per year to estimate yearly salary
+					int begSalary = Integer.parseInt(salaryBand[0]) * 2080;
+					//Add salary to an arrayList
+					allSalaries.add(begSalary);
+					if (begSalary > highestSalary) {
+						highestSalary = begSalary;
+						highestSalaryJob = j; 
+					}
+				}
+				//if contains monthly salary band
+				else if (salary.contains("-") && salary.contains("month")) {
+					String[] salaryBand = salary.split("-");
+					//remove all the non digit characters from the String of salaries
+					salaryBand[0] = salaryBand[0].replaceAll("[^\\d.]", "");
+					//multiply by 40 hours and 52 weeks per year to estimate yearly salary
+					int begSalary = Integer.parseInt(salaryBand[0]) * 12;
+					//Add salary to an arrayList
+					allSalaries.add(begSalary);
+					if (begSalary > highestSalary) {
+						highestSalary = begSalary;
+						highestSalaryJob = j; 
+					}
+				}
+				
 				// if there is a salary band then parse out the first salary
-				if (salary.contains("-")) {
+				else if (salary.contains("-")) {
 					String[] salaryBand = salary.split("-");
 					//remove all the non digit characters from the String of salaries
 					salaryBand[0] = salaryBand[0].replaceAll("[^\\d.]", "");
