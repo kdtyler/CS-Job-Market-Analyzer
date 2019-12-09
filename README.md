@@ -28,4 +28,9 @@ One thing not in the instructions is that you most likely need to directly add t
 
 Running the program:
 
-The program should be ran by pressing Run on the GUIHome.java class
+The program should be ran by pressing Run on the GUIHome.java class.
+
+Possible Errors from github:
+
+Our team found that for only certain teammembers, the github version when pulling would mess up the indendation of the GUIHome.java file. While this likely won't happen, if the GUI seems to not work, the best choice for a quick fix is cntr-I on the GUIHome.java file. We apologize for any inconvenience.
+
